@@ -1,0 +1,99 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Enemy_behaviour : MonoBehaviour
+{
+    [HideInInspector]
+    int direction; //1 = up 2 = up-right etc
+
+    private Rigidbody2D Rigidbody;
+    private int Speed = 60;
+    private float timer;
+    private float Bullet;
+    public GameObject projectile;
+    public GameObject rangeHolder;
+    
+    void Start()
+    {
+        Rigidbody = gameObject.GetComponent<Rigidbody2D>();
+        timer = Random.Range(1, 3);
+        random_direction();    // give random timers to direction change and shooting
+        Bullet = Random.Range(10, 60);
+    }
+
+    void random_direction()
+    {
+        direction = Random.Range(0, 8); //reset timer
+        Rigidbody.velocity = Vector3.zero; //stop moving
+        switch (direction) // add movement based on rng
+        {
+            case 7:
+                Rigidbody.AddForce(-transform.right * Speed);
+                Rigidbody.AddForce(transform.up * Speed);
+               // Debug.Log("up-left");
+                break;
+            case 6:
+                Rigidbody.AddForce(-transform.right * Speed);
+               // Debug.Log("left");
+                break;
+            case 5:
+                Rigidbody.AddForce(-transform.right * Speed);
+                Rigidbody.AddForce(-transform.up * Speed);
+               // Debug.Log("left-down");
+                break;
+            case 4:
+                Rigidbody.AddForce(-transform.up * Speed);
+                //Debug.Log("down");
+                break;
+            case 3:
+                Rigidbody.AddForce(transform.right * Speed);
+                Rigidbody.AddForce(-transform.up * Speed);
+                //Debug.Log("down-right");
+                break;
+            case 2:
+                Rigidbody.AddForce(transform.right * Speed);
+               // Debug.Log("right");
+                break;
+            case 1:
+                Rigidbody.AddForce(transform.up * Speed);
+                Rigidbody.AddForce(transform.right * Speed);
+                //Debug.Log("right-up");
+                break;
+            case 0:
+                Rigidbody.AddForce(transform.up * Speed);
+               // Debug.Log("up");
+                break;
+            default:
+
+                break;
+        }
+    }
+
+    void Update()
+    {
+       
+        timer -= Time.deltaTime;
+        Bullet -= Time.deltaTime;
+        if(timer <= 0)
+        {
+            timer = Random.Range(4, 8);
+            random_direction();
+        }
+        if(Bullet <= 0)
+        {
+            Bullet = Random.Range(10, 60);
+            Shoot();
+            Debug.Log("shot");
+        }
+    }
+    void Shoot()
+    {
+        GameObject shot;
+        GameObject holder;
+        shot = Instantiate(projectile, this.gameObject.transform.position , Quaternion.identity) ;
+        shot.GetComponent<bullet>().direction = direction; //give movement direction to bullet
+        holder = Instantiate(rangeHolder, this.gameObject.transform.position, Quaternion.identity);
+        shot.GetComponent<bullet>().rangeHolder = holder; //give rangeholder object to bullet
+    }
+}
