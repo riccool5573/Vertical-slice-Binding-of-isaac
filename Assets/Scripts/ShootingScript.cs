@@ -4,40 +4,122 @@ using UnityEngine;
 
 public class ShootingScript : MonoBehaviour{
 
-    public Transform Firepoint_voor;
-    public Transform Firepoint_achter;
-    public Transform Firepoint_links;
-    public Transform Firepoint_rechts;
+    public Transform firepointUp1;
+    public Transform firepointDown1;
+    public Transform firepointLeft1;
+    public Transform firepointRight1;
 
-    public GameObject tier;
-    void Start()
-    { 
-        
-    }
+    public Transform firepointUp2;
+    public Transform firepointDown2;
+    public Transform firepointLeft2;
+    public Transform firepointRight2;
 
-    // Update is called once per frame
+    public GameObject tear;
+
+    private bool eyeSwap1;
+    private bool eyeSwap2;
+    private bool eyeSwap3;
+    private bool eyeSwap4;
+
+    //cooldown werkt niet :)
+    public float coolDown = 1f;
+    public float coolDownTimer;
+    public Animator anim;
+
+
     void Update()
     {
+
+
+        if(coolDownTimer > 0)
+        {
+            coolDownTimer -= Time.deltaTime;
+        }
+        if(coolDownTimer < 0)
+        {
+            coolDownTimer = 0;
+            anim.SetBool("shot", false);
+        }
+
+        
         //check for input and send that to Shoot()
-        if (Input.GetKeyDown(KeyCode.UpArrow)){
-            Shoot(Firepoint_voor,"up");
- 
+        //up side of Isaac
+        if (Input.GetKey(KeyCode.UpArrow) && eyeSwap1 && coolDownTimer == 0){
+                Shoot(firepointUp1,"up");
+                eyeSwap1 = false;
+                coolDownTimer = coolDown;
+                anim.SetInteger("shootingdirection", 1);
+                anim.SetBool("shot", true);
+            }
+
+            else if (Input.GetKey(KeyCode.UpArrow) && !eyeSwap1 && coolDownTimer == 0)
+            {
+                Shoot(firepointUp2, "up");
+                eyeSwap1 = true;
+                coolDownTimer = coolDown;
+                anim.SetInteger("shootingdirection", 1);
+                anim.SetBool("shot", true);
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            Shoot(Firepoint_achter,"down");
+            //down side of Isaac
+            else if (Input.GetKey(KeyCode.DownArrow) && eyeSwap2 && coolDownTimer == 0)
+            {
+                Shoot(firepointDown1,"down");
+                eyeSwap2 = false;
+                coolDownTimer = coolDown;
+                anim.SetInteger("shootingdirection", 3);
+                anim.SetBool("shot", true);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            Shoot(Firepoint_links,"left");
+            else if (Input.GetKey(KeyCode.DownArrow) && !eyeSwap2 && coolDownTimer == 0)
+            {
+                Shoot(firepointDown2, "down");
+                eyeSwap2 = true;
+                coolDownTimer = coolDown;
+                anim.SetInteger("shootingdirection", 3);
+                anim.SetBool("shot", true);
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            Shoot(Firepoint_rechts,"right");
+            //left side of Isaac
+            else if (Input.GetKey(KeyCode.LeftArrow) && eyeSwap3 && coolDownTimer == 0)
+            {
+                Shoot(firepointLeft1,"left");
+                eyeSwap3 = false;
+                coolDownTimer = coolDown;
+                anim.SetInteger("shootingdirection", 4);
+                anim.SetBool("shot", true);
+        }   
+
+            else if (Input.GetKey(KeyCode.LeftArrow) && !eyeSwap3 && coolDownTimer == 0)
+            {
+                Shoot(firepointLeft2, "left");
+                eyeSwap3 = true;
+                coolDownTimer = coolDown;
+                anim.SetInteger("shootingdirection", 4);
+                anim.SetBool("shot", true);
         }
+
+            //right side of Isaac
+            else if (Input.GetKey(KeyCode.RightArrow) && eyeSwap4 && coolDownTimer == 0)
+            {
+                Shoot(firepointRight1,"right");
+                eyeSwap4 = false;
+                coolDownTimer = coolDown;
+                anim.SetInteger("shootingdirection", 2);
+                anim.SetBool("shot", true);
+                Debug.Log("right");
+        }
+
+            else if (Input.GetKey(KeyCode.RightArrow) && !eyeSwap4 && coolDownTimer == 0)
+            {
+                Shoot(firepointRight2, "right");
+                eyeSwap4 = true;
+                coolDownTimer = coolDown;
+                anim.SetInteger("shootingdirection",2);
+                anim.SetBool("shot", true);
+            Debug.Log("right");
+        }
+
 
     }
 
@@ -46,7 +128,7 @@ public class ShootingScript : MonoBehaviour{
         //shoot projectile in given direction
         GameObject Shot;
 
-        Shot = Instantiate(tier, direction.position, Quaternion.identity);
+        Shot = Instantiate(tear, direction.position, Quaternion.identity);
         Shot.GetComponent<BulletScript>().Direction = Direction;
     }
  
