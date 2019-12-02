@@ -89,7 +89,7 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
+  - m_ConditionMode: 6
     m_ConditionEvent: shootingdirection
     m_EventTreshold: 3
   - m_ConditionMode: 1
@@ -916,7 +916,7 @@ AnimatorStateMachine:
     m_Position: {x: 100, y: 150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5748952587576198312}
-    m_Position: {x: -190, y: 160, z: 0}
+    m_Position: {x: 540, y: 90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -162596197446651739}
     m_Position: {x: -170, y: 270, z: 0}

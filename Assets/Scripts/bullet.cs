@@ -9,8 +9,10 @@ public class bullet : MonoBehaviour
     private int Speed = 250;
     private Rigidbody2D Rigidbody;
     public GameObject rangeHolder;
+    
     void Start()
     {
+       
         Rigidbody = gameObject.GetComponent<Rigidbody2D>();
         switch (direction)
         {

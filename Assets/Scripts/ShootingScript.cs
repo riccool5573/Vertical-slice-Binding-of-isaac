@@ -25,11 +25,13 @@ public class ShootingScript : MonoBehaviour{
     public float coolDown = 1f;
     public float coolDownTimer;
     public Animator anim;
-
+    public PlayerMovement player;
+    private int movedir;
+    public GameObject rangeHolder;
 
     void Update()
     {
-
+        movedir = player.direction;
 
         if(coolDownTimer > 0)
         {
@@ -38,7 +40,7 @@ public class ShootingScript : MonoBehaviour{
         if(coolDownTimer < 0)
         {
             coolDownTimer = 0;
-            anim.SetBool("shot", false);
+           
         }
 
         
@@ -48,17 +50,15 @@ public class ShootingScript : MonoBehaviour{
                 Shoot(firepointUp1,"up");
                 eyeSwap1 = false;
                 coolDownTimer = coolDown;
-                anim.SetInteger("shootingdirection", 1);
-                anim.SetBool("shot", true);
-            }
+                StartCoroutine(shootanim(1));
+        }
 
             else if (Input.GetKey(KeyCode.UpArrow) && !eyeSwap1 && coolDownTimer == 0)
             {
                 Shoot(firepointUp2, "up");
                 eyeSwap1 = true;
                 coolDownTimer = coolDown;
-                anim.SetInteger("shootingdirection", 1);
-                anim.SetBool("shot", true);
+                StartCoroutine(shootanim(1));
         }
 
             //down side of Isaac
@@ -67,8 +67,7 @@ public class ShootingScript : MonoBehaviour{
                 Shoot(firepointDown1,"down");
                 eyeSwap2 = false;
                 coolDownTimer = coolDown;
-                anim.SetInteger("shootingdirection", 3);
-                anim.SetBool("shot", true);
+                StartCoroutine(shootanim(3));
         }
 
             else if (Input.GetKey(KeyCode.DownArrow) && !eyeSwap2 && coolDownTimer == 0)
@@ -76,8 +75,7 @@ public class ShootingScript : MonoBehaviour{
                 Shoot(firepointDown2, "down");
                 eyeSwap2 = true;
                 coolDownTimer = coolDown;
-                anim.SetInteger("shootingdirection", 3);
-                anim.SetBool("shot", true);
+                StartCoroutine(shootanim(3));
         }
 
             //left side of Isaac
@@ -86,8 +84,7 @@ public class ShootingScript : MonoBehaviour{
                 Shoot(firepointLeft1,"left");
                 eyeSwap3 = false;
                 coolDownTimer = coolDown;
-                anim.SetInteger("shootingdirection", 4);
-                anim.SetBool("shot", true);
+                StartCoroutine(shootanim(4));
         }   
 
             else if (Input.GetKey(KeyCode.LeftArrow) && !eyeSwap3 && coolDownTimer == 0)
@@ -95,8 +92,7 @@ public class ShootingScript : MonoBehaviour{
                 Shoot(firepointLeft2, "left");
                 eyeSwap3 = true;
                 coolDownTimer = coolDown;
-                anim.SetInteger("shootingdirection", 4);
-                anim.SetBool("shot", true);
+                StartCoroutine(shootanim(4));
         }
 
             //right side of Isaac
@@ -105,8 +101,8 @@ public class ShootingScript : MonoBehaviour{
                 Shoot(firepointRight1,"right");
                 eyeSwap4 = false;
                 coolDownTimer = coolDown;
-                anim.SetInteger("shootingdirection", 2);
-                anim.SetBool("shot", true);
+                StartCoroutine(shootanim(2));
+
                 Debug.Log("right");
         }
 
@@ -115,21 +111,32 @@ public class ShootingScript : MonoBehaviour{
                 Shoot(firepointRight2, "right");
                 eyeSwap4 = true;
                 coolDownTimer = coolDown;
-                anim.SetInteger("shootingdirection",2);
-                anim.SetBool("shot", true);
+                StartCoroutine(shootanim(2));
+                
+                
             Debug.Log("right");
         }
 
 
+    }
+     IEnumerator shootanim(int direction)
+    {
+        anim.SetInteger("shootingdirection", direction);
+        anim.SetBool("shot", true);
+        yield return new WaitForSecondsRealtime(0.2f);
+        anim.SetBool("shot", false);
     }
 
     void Shoot(Transform direction, string Direction)
     {
         //shoot projectile in given direction
         GameObject Shot;
-
+        GameObject holder;
         Shot = Instantiate(tear, direction.position, Quaternion.identity);
         Shot.GetComponent<BulletScript>().Direction = Direction;
+        Shot.GetComponent<BulletScript>().drag = movedir;
+        holder = Instantiate(rangeHolder, direction.position, Quaternion.identity);
+        Shot.GetComponent<BulletScript>().rangeHolder = holder; //give rangeholder object to bullet
     }
  
 }
