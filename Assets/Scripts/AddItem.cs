@@ -4,39 +4,22 @@ using UnityEngine;
 
 public class AddItem : MonoBehaviour
 {
-    private int keyCount;
-    private int coinCount;
-    private int bombCount;
-
-    private void Start()
-    {
-        keyCount = 0;
-        bombCount = 1;
-        coinCount = 0;
-
-        Debug.Log("Key Count = " + keyCount);
-        Debug.Log("Coin Count = " + coinCount);
-        Debug.Log("Bomb Count = " + bombCount);
-    }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
         if(col.gameObject.tag == "Key")
         {
-            keyCount = keyCount + 1;
-            Debug.Log("Key Count = " + keyCount);
+            gameObject.GetComponent<UIDisplay>().key2++;
         }
 
         else if (col.gameObject.tag == "Coin")
         {
-            coinCount = coinCount + 1;
-            Debug.Log("Coin Count = " + coinCount);
+            gameObject.GetComponent<UIDisplay>().coin2++;
         }
 
         else if (col.gameObject.tag == "Bomb")
         {
-            bombCount = bombCount + 1;
-            Debug.Log("Bomb Count = " + bombCount);
+            gameObject.GetComponent<UIDisplay>().bomb2++;
         }
     }
 }

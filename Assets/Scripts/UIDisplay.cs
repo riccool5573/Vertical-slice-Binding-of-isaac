@@ -8,15 +8,15 @@ public class UIDisplay : MonoBehaviour
 
     public Text coinText;
     private int coin1 = 0;
-    private int coin2 = 1;
+    public int coin2 = 1;
 
     public Text bombText;
     private int bomb1 = 0;
-    private int bomb2 = 1;
+    public int bomb2 = 1;
 
     public Text keyText;
     private int key1 = 0;
-    private int key2 = 2;
+    public int key2 = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +27,7 @@ public class UIDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             bomb2++;

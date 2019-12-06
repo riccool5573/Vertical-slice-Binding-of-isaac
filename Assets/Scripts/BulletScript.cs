@@ -68,7 +68,11 @@ public class BulletScript : MonoBehaviour
 
         }
     }
-    IEnumerator deathanim()
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        StartCoroutine(deathanim());
+    }
+    public IEnumerator deathanim()
     {
         rb.velocity = Vector3.zero;
         anim.SetBool("dead", true);

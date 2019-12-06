@@ -9,6 +9,7 @@ TagManager:
   - player
   - Coin
   - Bomb
+  - Playerprojectile
   layers:
   - Default
   - TransparentFX

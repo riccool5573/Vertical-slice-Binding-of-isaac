@@ -10,6 +10,11 @@ public class Health : MonoBehaviour
     public GameObject death;
     public GameObject soul;
     public GameObject head;
+    public Animator anim;
+    public int frames;
+    [HideInInspector]
+    public float invframes;
+   
 
     Color color = new Color(5f, 0f, 0f);
     Color defaultColor;
@@ -23,31 +28,55 @@ public class Health : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(health <= 0)
+        if (health <= 0)
         {
-            Instantiate(death, new Vector3(2, -0.5f, 0), Quaternion.identity);
-            Instantiate(soul, new Vector3(0, 0.5f, 0), Quaternion.identity);
-            Destroy(this.gameObject);
+            if (anim == null)
+            {
+                Instantiate(death, new Vector3(2, -0.5f, 0), Quaternion.identity);
+                Instantiate(soul, new Vector3(0, 0.5f, 0), Quaternion.identity);
+                Destroy(this.gameObject);
+            }
+            if (anim != null)
+            {
+                anim.SetBool("dead", true);
+                StartCoroutine(deathanim());
+
+            }
         }
-        if (Input.GetKeyDown(KeyCode.H))
+        if(invframes > 0)
         {
-            isHit = true;
+            invframes -= Time.deltaTime;
         }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            health = 0;
-        }
-        if (isHit)
+        if (isHit && invframes <= 0)
         {
             health = health - dmg; //Sets the health;
             isHit = false;
             gameObject.GetComponent<Renderer>().material.color = color; //Changes color to red when hit
-            head.GetComponent<Renderer>().material.color = color;
+            if (head != null)
+            {
+                head.GetComponent<Renderer>().material.color = color;
+            }
+            invframes = frames;
         }
         else
         {
+            isHit = false;
             gameObject.GetComponent<Renderer>().material.color = defaultColor; //Changes color back to deafault
-            head.GetComponent<Renderer>().material.color = defaultColor;
+            if (head != null)
+            {
+                head.GetComponent<Renderer>().material.color = defaultColor;
+            }
         }
+    }
+
+    IEnumerator deathanim()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        anim.SetBool("dead", false);
+        Destroy(this.gameObject);
+    }
+    public void hit(bool hit)
+    {
+        isHit = hit;
     }
 }
