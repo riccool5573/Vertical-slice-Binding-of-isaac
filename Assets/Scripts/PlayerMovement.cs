@@ -10,6 +10,14 @@ public class PlayerMovement : MonoBehaviour
     public AnimatorRecorderMode recorderMode;
     public int direction;
 
+    public enum movingDirection
+    {
+        up,
+        down,
+        left,
+        right
+    }
+
     // Update is called once per frame
     private void Start()
     {

@@ -15,6 +15,7 @@ public class Enemy_behaviour : MonoBehaviour
     public GameObject rangeHolder;
     public Animator anim;
     public SpriteRenderer render;
+    private int spawntimer = 0;
     
 
     void Start()
@@ -23,6 +24,7 @@ public class Enemy_behaviour : MonoBehaviour
         timer = Random.Range(1, 3);
         random_direction();    // give random timers to direction change and shooting
         Bullet = Random.Range(10, 60);
+        anim.SetBool("start", true);
     }
 
     void random_direction()
@@ -89,7 +91,14 @@ public class Enemy_behaviour : MonoBehaviour
 
     void Update()
     {
-        
+        if(spawntimer < 6)
+        {
+            spawntimer++;
+        }
+        if(spawntimer == 6)
+        {
+            anim.SetBool("start", false);
+        }
         timer -= Time.deltaTime;
         Bullet -= Time.deltaTime;
         if(timer <= 0)
@@ -113,4 +122,5 @@ public class Enemy_behaviour : MonoBehaviour
         holder = Instantiate(rangeHolder, this.gameObject.transform.position, Quaternion.identity);
         shot.GetComponent<bullet>().rangeHolder = holder; //give rangeholder object to bullet
     }
+ 
 }

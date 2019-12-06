@@ -9,6 +9,7 @@ public class bullet : MonoBehaviour
     private int Speed = 250;
     private Rigidbody2D Rigidbody;
     public GameObject rangeHolder;
+    public Animator anim;
     
     void Start()
     {
@@ -64,10 +65,17 @@ public class bullet : MonoBehaviour
         //check distance from where object was shot
         if(Vector2.Distance(this.transform.position, rangeHolder.transform.position) >= 10)
         {
-            Destroy(this.gameObject);
-            Destroy(rangeHolder); //destroy object and rangeholder object if object goes past range
+            StartCoroutine(deathanim()); //destroy object and rangeholder object if object goes past range
             
             
         }
+    }
+    IEnumerator deathanim()
+    {
+        Rigidbody.velocity = Vector3.zero;
+        anim.SetBool("death", true);
+        yield return new WaitForSecondsRealtime(0.4f);
+        Destroy(this.gameObject);
+        Destroy(rangeHolder); //destroy object and rangeholder object if object goes past range
     }
 }

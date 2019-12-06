@@ -586,6 +586,8 @@ MonoBehaviour:
   firepointLeft2: {fileID: 618311127}
   firepointRight2: {fileID: 486657593}
   tear: {fileID: 6224870050425683479, guid: 4adbab8d153e83947b4ebb4e37fee2d2, type: 3}
+  coolDown: 1
+  coolDownTimer: 0
 --- !u!114 &1181308172
 MonoBehaviour:
   m_ObjectHideFlags: 0

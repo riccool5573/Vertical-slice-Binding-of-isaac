@@ -682,6 +682,7 @@ GameObject:
   - component: {fileID: 1820413254}
   - component: {fileID: 1820413252}
   - component: {fileID: 1820413255}
+  - component: {fileID: 1820413256}
   - component: {fileID: 1820413253}
   m_Layer: 0
   m_Name: Frame 1
@@ -804,6 +805,22 @@ MonoBehaviour:
   render: {fileID: 1820413254}
   recorderMode: 1
   direction: 0
+--- !u!114 &1820413256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820413250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e56459c74caeac4c941f462a7ac02b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 6
+  death: {fileID: 3102642591996438939, guid: f44594923e523c443bf2e931e3a24125, type: 3}
+  soul: {fileID: 1260146689782604210, guid: 1757c5b937f845e4d8ba81f80705361c, type: 3}
+  head: {fileID: 906621088}
 --- !u!1 &1848866925
 GameObject:
   m_ObjectHideFlags: 0
