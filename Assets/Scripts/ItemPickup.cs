@@ -10,8 +10,9 @@ public class ItemPickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.tag == "player")
+        if(col.gameObject.CompareTag("player"))
         {
+            print("BLA");
             Destroy(this.gameObject);
         }
     }

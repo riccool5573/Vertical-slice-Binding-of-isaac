@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemyknockback : MonoBehaviour
+public class Enemyknockback : MonoBehaviour
 {
     public GameObject Enemyprojectile;
     public GameObject Owner;

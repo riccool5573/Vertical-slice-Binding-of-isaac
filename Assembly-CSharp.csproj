@@ -69,11 +69,12 @@
     <Compile Include="Assets\Scripts\BulletScript.cs" />
     <Compile Include="Assets\Scripts\Enemy_behaviour.cs" />
     <Compile Include="Assets\Scripts\Enemy_Health.cs" />
-    <Compile Include="Assets\Scripts\enemyknockback.cs" />
-    <Compile Include="Assets\Scripts\headMovement.cs" />
+    <Compile Include="Assets\Scripts\Enemyknockback.cs" />
+    <Compile Include="Assets\Scripts\HeadMovement.cs" />
     <Compile Include="Assets\Scripts\Health.cs" />
     <Compile Include="Assets\Scripts\ItemPickup.cs" />
     <Compile Include="Assets\Scripts\Knockback.cs" />
+    <Compile Include="Assets\Scripts\Layering.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\ShootingScript.cs" />
     <Compile Include="Assets\Scripts\UIDisplay.cs" />
@@ -104,6 +105,9 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>C:/Users/Student/Vertical slice Binding of isaac/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>C:/Users/Student/Vertical slice Binding of isaac/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.12f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

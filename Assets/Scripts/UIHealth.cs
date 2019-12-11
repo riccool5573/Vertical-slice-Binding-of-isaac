@@ -8,10 +8,16 @@ public class UIHealth : MonoBehaviour
     public Image[] hearts;  
     public Sprite healthFull;
     public Sprite healthEmpty;
+    private int health;
 
     public int currentHp;
     public int maxHp;
 
+    void Start()
+    {
+        health = currentHp;
+        Debug.Log(health);
+    }
 
     void Update()
     {
@@ -34,6 +40,12 @@ public class UIHealth : MonoBehaviour
             else
             {
                 hearts[i].enabled = false;
+            }
+            if (Input.GetKey(KeyCode.Z))
+            {
+
+                i--;
+                //hearts[i].fillAmount = currentHp / maxHp;
             }
         }
     }

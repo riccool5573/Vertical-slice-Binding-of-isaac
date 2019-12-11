@@ -12,6 +12,8 @@ public class Health : MonoBehaviour
     public GameObject head;
     public Animator anim;
     public int frames;
+    public bool hasinv;
+    public bool isplayer;
     [HideInInspector]
     public float invframes;
    
@@ -32,8 +34,8 @@ public class Health : MonoBehaviour
         {
             if (anim == null)
             {
-                Instantiate(death, new Vector3(2, -0.5f, 0), Quaternion.identity);
-                Instantiate(soul, new Vector3(0, 0.5f, 0), Quaternion.identity);
+                Instantiate(death, new Vector3(gameObject.transform.position.x +2, -gameObject.transform.position.y +0.5f, gameObject.transform.position.z), Quaternion.identity);
+                Instantiate(soul, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 0.5f, gameObject.transform.position.z), Quaternion.identity);
                 Destroy(this.gameObject);
             }
             if (anim != null)
@@ -43,12 +45,13 @@ public class Health : MonoBehaviour
 
             }
         }
-        if(invframes > 0)
+        if(invframes > 0 && hasinv)
         {
             invframes -= Time.deltaTime;
         }
         if (isHit && invframes <= 0)
         {
+
             health = health - dmg; //Sets the health;
             isHit = false;
             gameObject.GetComponent<Renderer>().material.color = color; //Changes color to red when hit
@@ -56,7 +59,10 @@ public class Health : MonoBehaviour
             {
                 head.GetComponent<Renderer>().material.color = color;
             }
-            invframes = frames;
+            if (hasinv)
+            {
+                invframes = frames;
+            }
         }
         else
         {
@@ -68,7 +74,16 @@ public class Health : MonoBehaviour
             }
         }
     }
-
+    void OnCollisionEnter2D(UnityEngine.Collision2D collision)
+    {
+        if (isplayer)
+        {
+            if (collision.gameObject.tag == "Enemy")
+            {
+                hit(true);
+            }
+        }
+    }
     IEnumerator deathanim()
     {
         yield return new WaitForSecondsRealtime(0.5f);

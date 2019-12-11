@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class AddItem : MonoBehaviour
 {
+    private UIDisplay UID;
 
+    private void Start()
+    {
+        UID = GameObject.Find("coinText").GetComponent<UIDisplay>();
+    }
     private void OnTriggerEnter2D(Collider2D col)
     {
         if(col.gameObject.tag == "Key")
         {
-            gameObject.GetComponent<UIDisplay>().key2++;
+            UID.key2++;
         }
 
         else if (col.gameObject.tag == "Coin")
         {
-            gameObject.GetComponent<UIDisplay>().coin2++;
+            UID.coin2++;
         }
 
         else if (col.gameObject.tag == "Bomb")
         {
-            gameObject.GetComponent<UIDisplay>().bomb2++;
+            UID.bomb2++;
         }
     }
 }

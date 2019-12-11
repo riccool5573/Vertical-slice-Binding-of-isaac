@@ -23,7 +23,7 @@ public class Enemy_behaviour : MonoBehaviour
         Rigidbody = gameObject.GetComponent<Rigidbody2D>();
         timer = Random.Range(1, 3);
         random_direction();    // give random timers to direction change and shooting
-        Bullet = Random.Range(10, 60);
+        Bullet = Random.Range(1, 8);
         anim.SetBool("start", true);
     }
 
@@ -108,19 +108,22 @@ public class Enemy_behaviour : MonoBehaviour
         }
         if(Bullet <= 0)
         {
-            Bullet = Random.Range(10, 60);
-            Shoot();
-            Debug.Log("shot");
+            Bullet = Random.Range(1, 8);
+            StartCoroutine(Shoot());
+            
         }
     }
-    void Shoot()
+    IEnumerator Shoot()
     {
         GameObject shot;
         GameObject holder;
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         shot = Instantiate(projectile, this.gameObject.transform.position , Quaternion.identity) ;
         shot.GetComponent<bullet>().direction = direction; //give movement direction to bullet
         holder = Instantiate(rangeHolder, this.gameObject.transform.position, Quaternion.identity);
         shot.GetComponent<bullet>().rangeHolder = holder; //give rangeholder object to bullet
+        yield return new WaitForSecondsRealtime(0.4f);
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
     }
  
 }

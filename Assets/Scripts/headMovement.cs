@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class headMovement : MonoBehaviour
+public class HeadMovement : MonoBehaviour
 {
     // Start is called before the first frame update
     public Animator anim;

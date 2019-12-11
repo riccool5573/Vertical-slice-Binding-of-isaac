@@ -28,12 +28,6 @@ public class UIDisplay : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            bomb2++;
-            coin2++;
-            key2++;
-        }
 
         //UI for the coins
         if (coin2 > 9)

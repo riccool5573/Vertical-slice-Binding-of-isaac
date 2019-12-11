@@ -64,13 +64,27 @@ public class BulletScript : MonoBehaviour
         {
 
             StartCoroutine(deathanim());
+            Debug.Log("range");
 
 
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(deathanim());
+ 
+        if (collision.GetComponent<enemyknockback>().Owner.tag != "player" )
+        {
+            StartCoroutine(deathanim());
+            Debug.Log("got here");
+        }
+    }
+    void OnCollisionEnter2D(UnityEngine.Collision2D collision)
+    {
+        if (collision.gameObject.tag != "projectile" && collision.gameObject.tag != "Playerprojectile")
+        {
+            StartCoroutine(deathanim()); ;
+            Debug.Log("collision");
+        }
     }
     public IEnumerator deathanim()
     {
